@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    user init chips : user1 - {{ user1_chips }}, user2 - {{user2_chips}}<br/>
+    now winner : {{winner}}<br/><br/>
+    
+    cardNum : user1 - {{user1_rand}}, user2 - {{user2_rand}}<br/>
+
+    check : {{check}}<br/><br/>
+    
+    How much will you bet?(Maximum 10)<br/>
+    input user1 bet chip : <input type="number" placeholder="user1 bet chips" v-model="user1_bet" >
+    input user2 bet chip : <input type="number" placeholder="user2 bet chips" v-model="user2_bet" ><br/><br/>
+    <button v-on:click="betting">Betting Chips</button><br/>
+
+    user bet : user1 - {{ user1_bet }}, user2 - {{user2_bet}}<br/>
+
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script>
+    new Vue({
+      el: '#app',
+      data: {
+        // Initial chips amount
+        user1_chips: 20,
+        user2_chips:20,
+        // rancom card
+        user1_rand: 1,
+        user2_rand: 1,
+        // bet chips
+        user1_bet: "",
+        user2_bet: "",
+        check: "Are you there?",
+        //The room manager starts the game first. I randomly set user1 to go first.
+    //From the second round, Game start with the winner of the previous round.
+        winner: "user1"
+      },
+      watch: {
+        user1_chips: function() {
+            this.logText();
+        },
+        user2_chips: function(){
+            this.logText();
+        },
+        user1_rand: function(){
+            this.logText();
+        },
+        user2_rand: function(){
+            this.logText();
+        },
+        user1_bet:function(){
+            this.logText();
+        },
+        user2_bet:function(){
+            this.logText();
+        },
+        winner: function(){
+            this.logText();
+        },
+        check: function(){
+            this.logText();
+        },
+       
+      },
+      methods: {
+           // random card generating..(1-10) on server, but I've arbitrarily set it up like this.
+        random: function() {
+          this.user1_rand = Math.floor(Math.random() * 10) + 1;
+          this.user2_rand = Math.floor(Math.random() * 10) + 1;
+        },    
+        checkChipNum: function(){
+            while(this.user1_bet > 10 || this.user1_bet <1){
+                this.user1_bet = ("Submit more than one and less than ten.");
+            }
+            while(this.user2_bet > 10|| this.user2_bet <1){
+                this.user2_bet = ("Submit more than one and less than ten.");
+            }
+                
+        },
+        betting: function(){
+            if(this.user1_chips > 0 && this.user2_chips > 0){
+                this.random();
+                // betting Chips
+                // The second person has to pay the same or more than the first person.
+                
+                if(this.winner == "user1"){
+                    
+                    if(this.user1_bet > this.user2_bet){
+                        this.checkChipNum();
+                        this.user2_bet = ("User2 Chips must be equal to or greater than User1 Chips");
+                        //this.check = "yes I am";
+                    }
+                }
+                else{
+                    if(this.user1_bet < this.user2_bet){
+                        this.checkChipNum();
+                        this.user1_bet = ("User1 Chips must be equal to or greater than User2 Chips");
+                    }
+                }
+                
+
+               
+            }
+        },
+        logText: function() {
+          console.log('changed');
+        },
+
+
+      }
+    })
+  </script>
+</body>
+</html>
+
+
+<br/><br/><br/><br/>
+/*
+button v-on:click="random">select random cards/button>
+    //As soon as two people come in, the game starts.
+
+
+    // Initial chips amount
+    /*var user1_chips = 20;
+    var user2_chips = 20;
+   
+    // user1_rand ==  user2_rand
+    var Tie1 = 0, Tie2 = 0;
+    
+    //The room manager starts the game first. I randomly set user1 to go first.
+    //From the second round, Game start with the winner of the previous round.
+    var winner = "user1";
+
+    while(user1_chips > 0 && user2_chips > 0){  // Until the chips that user has are gone.
+
+        // random card generating..(1-10) on server, but I've arbitrarily set it up like this.
+        var user1_rand = Math.floor(Math.random() * 10) + 1;    // on server
+        var user2_rand = Math.floor(Math.random() * 10) + 1;    // on server
+        document.getElementById("demo").innerHTML = x;
+
+        // User-beting chips / Minimum bet amount = 1
+        // The second person has to pay the same or more than the first person.
+        if(winner == "user1"){
+            var user1_bet = prompt("How much will you bet?", 1);
+            
+            var user2_bet = prompt("How much will you bet?", user1_bet);
+            while(user2_bet < user1_bet){     // Whoever wins the previous round can bet first.
+                var user2_bet = prompt("Bet more than user1", user1_bet);
+            }
+        }
+        else{
+            var user2_bet = prompt("How much will you bet?", 1);
+            var user1_bet = prompt("How much will you bet?", user2_bet);
+            while(user1_bet < user2_bet){
+                var user1_bet = prompt("Bet more than user2", user2_bet);
+            }
+        }
+
+
+        if(Tie1 != 0){              // If it was tied in the previous round, 
+            user1_bet += Tie1;     //it will combine the chips that were beted and the chips that are currently beted.
+            user2_bet += Tie2;
+            Tie1 = 0;
+            Tie2 = 0;
+        }
+
+        if(user1_rand == user2_rand){   // If it is tied, 
+            Tie1 = user1_bet;          // it will leave the betting chip intact and combine it 
+            Tie2 = user2_bet;          // with the betting amount for the next round.
+            user1_chips -= user1_bet;
+            user2_chips -= user2_bet;
+            continue;           
+        }
+        else if(user1_rand > user2_rand){
+            user1_chips += user2_bet;
+            user2_chips -= user2_bet;
+            winner = "user1";
+        }
+        else{  //(user1_rand < user2_rand)
+            user2_chips += user1_bet;
+            user1_chips -= user1_bet;
+            winner = "user2";
+        }
+    }
+
+   */
+    //If one person leaves the game in the middle, the other person has to win.
+    // But I can't think of a way to implement it.
+
+
+*/
