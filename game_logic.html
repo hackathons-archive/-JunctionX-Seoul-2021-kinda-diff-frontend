@@ -27,9 +27,7 @@
 
     [Second Method]<br/>
     Do you want to go all-in?<br/>
-    
-    If user1 is all-in, <input type="number" placeholder="user2 bet chips" v-model="user2_bet" ><br/>
-    If user2 is all-in, <input type="number" placeholder="user1 bet chips" v-model="user1_bet" ><br/>
+    Just like the number of all-in chips, the opponent's chips are automatically betted.<br/>
     <button v-on:click="betting_Res">Betting All Chips</button><br/><br/>
 
     user bet : user1 - {{ user1_bet }}, user2 - {{user2_bet}}<br/><br/>
@@ -66,9 +64,6 @@
         // round
         round : 0,
 
-        //all-in check
-        user1_all_in : false,
-        user2_all_in : false,
         
         //The room manager starts the game first. I randomly set user1 to go first.
     //From the second round, Game start with the winner of the previous round.
@@ -115,23 +110,32 @@
             }*/
             
         },
-        betting_all_in: function(){     // If user loses after all-in, user will get 5 more chips as a penalty.
+        betting_all_in: function(){     
             if(this.user1_chips > 0 && this.user2_chips > 0){       
                 // betting Chips
                 // The second person has to pay the same or more than the first person.
                 
-                if(this.winner == "user1"){
-                    this.user1_bet = this.user1_chips;      // in case, only user2 input chips
-                    user1_all_in = true;
-                    if(this.user1_bet > this.user2_bet){    
-                        this.user2_bet = ("User2 Chips >= User1 Chips");
+                if(this.winner == "user1"){     
+                    this.user1_bet = this.user1_chips;      
+
+                    //Because user1 is all-in, user2 also bets as much as user1 is all-in.
+                    if(this.user2_bet >= this.user1_bet){
+                        this.user2_bet = this.user2_chips;
                     }
+                    else{
+                        this.user2_bet = this.user1_chips;
+                    }
+                    
                 }
                 else{           
-                    this.user2_bet = this.user2_chips;      // in case, only user1 input chips
-                    user2_all_in = true;
-                    if(this.user1_bet < this.user2_bet){
-                        this.user1_bet = ("User1 Chips >= User2 Chips");
+                    this.user2_bet = this.user2_chips;     
+
+                    //Because user2 is all-in, user1 also bets as much as user1 is all-in.
+                    if(this.user1_bet >= this.user2_bet){
+                        this.user1_bet = this.user2_chips;
+                    }
+                    else{
+                        this.user1_bet = this.user1_chips;
                     }
                 }
                 
@@ -151,7 +155,7 @@
                     this.before_user1_bet =0;
                     this.before_user2_bet =0;
                 }
-
+                
                 
                 if(this.user1_rand == this.user2_rand){         // to combine it with the betting amount for the next round.
                     this.before_user1_bet = this.user1_bet;
@@ -159,26 +163,22 @@
         
                 }
                 else if(this.user1_rand > this.user2_rand){     // user1 win
-                    if(user1_all_in == false && user2_all_in == false){
-                        this.user1_chips = parseInt(this.user1_chips) + parseInt(this.user2_bet);
-                        this.user2_chips = parseInt(this.user2_chips) - parseInt(this.user2_bet);
+                    this.user1_chips = parseInt(this.user1_chips) + parseInt(this.user2_bet);
+                    this.user2_chips = parseInt(this.user2_chips) - parseInt(this.user2_bet);
+                    
+                    if(this.user2_rand == 10){  //-5 chips as penalty if users lose the game with 10
+                        this.user2_chips -= 5;
                     }
-                    else if(user2_all_in == true){ 
-                        this.user1_chips = parseInt(this.user1_chips) + parseInt(this.user2_bet);
-                        this.user2_chips = parseInt(this.user2_chips) - parseInt(this.user2_bet) - 5;
-                    }
-                
                     this.winner = "user1";
                 }
                 else{  //(user1_rand < user2_rand)              // user2 win
-                    if(user1_all_in == false && user2_all_in == false){
-                        this.user2_chips = parseInt(this.user2_chips) + parseInt(this.user1_bet);
-                        this.user1_chips = parseInt(this.user1_chips) - parseInt(this.user1_bet);
-                    }
-                    else if(user1_all_in == true){ 
-                        this.user1_chips = parseInt(this.user1_chips) + parseInt(this.user2_bet) - 5;
-                        this.user2_chips = parseInt(this.user2_chips) - parseInt(this.user2_bet);
-                    }
+                    this.user2_chips = parseInt(this.user2_chips) + parseInt(this.user1_bet);
+                    this.user1_chips = parseInt(this.user1_chips) - parseInt(this.user1_bet);
+
+                    if(this.user1_rand== 10){   //-5 chips as penalty if users lose the game with 10
+                        this.user1_chips -= 5;
+                    }   
+
                     this.winner = "user2";
                 }
                 
@@ -233,7 +233,7 @@ Used Card Not Reusable..                             ----------> solved<br/>
 Small errors need to be corrected. (Somtimes... betting, if tied.. )<br/>
 betting, betting_res : For else, need to be on screen         ----------> solved..(?)<br/>
 Apply loop statement to game <br/>
-add ALL-In CASE              <br/>
+add ALL-In CASE                              ----------> solved <br/>  
 add win, lose, tied case
 align with Front-end <br/>
 add 'end game' Function                              --> when align front-end<br/>
