@@ -8,17 +8,19 @@
 </head>
 <body>
   <div id="app">
-    
+    User1_Cards : {{user1_cards}}<br/>
+    User2_Cards : {{user2_cards}}<br/>
     Now winner : {{winner}}<br/>
     Round : {{round}}<br/><br/>
-    cardNum : user1 - {{user1_rand}}, user2 - {{user2_rand}}<br/>
+    before user betting chip : user1 - {{before_user1_bet}}, user2 - {{before_user2_bet}}<br/><br/>
 
+    cardNum : user1 - {{user1_rand}}, user2 - {{user2_rand}}<br/>
     <button v-on:click="random">select random cards</button><br/>
     How much will you bet?(1 - 10)<br/>
     input user1 bet chip : <input type="number" placeholder="user1 bet chips" v-model="user1_bet" >
-    input user2 bet chip : <input type="number" placeholder="user2 bet chips" v-model="user2_bet" ><br/><br/>
-    
-    <button v-on:click="betting">Betting Chips</button><br/>
+    input user2 bet chip : <input type="number" placeholder="user2 bet chips" v-model="user2_bet" ><br/>
+    <button v-on:click="betting">Betting Chips</button><br/><br/>
+
     user bet : user1 - {{ user1_bet }}, user2 - {{user2_bet}}<br/><br/>
     
     <button v-on:click="betting_res">Betting Result</button><br/>
@@ -33,6 +35,9 @@
     new Vue({
       el: '#app',
       data: {
+        //card
+        user1_cards:[1,2,3,3,4,5,6,7,8,9,10],
+        user2_cards:[1,2,3,3,4,5,6,7,8,9,10],
         // Initial chips amount
         user1_chips: 20,
         user2_chips:20,
@@ -47,7 +52,7 @@
         before_user2_bet:"",
 
         // round
-        round : 1,
+        round : 0,
 
         //The room manager starts the game first. I randomly set user1 to go first.
     //From the second round, Game start with the winner of the previous round.
@@ -75,19 +80,22 @@
         winner: function(){
             this.logText();
         },
-        check: function(){
-            this.logText();
-        },
         round: function(){
             this.logText();
+        },
+        cards: function(){
+            thi.logText();
         }
        
       },
       methods: {
         // random card generating..(1-10) on Back-end, but I've arbitrarily set it up like this.
         random: function() {
-          this.user1_rand = Math.floor(Math.random() * 10) + 1;
-          this.user2_rand = Math.floor(Math.random() * 10) + 1;
+            this.round++;
+            
+            this.user1_rand = this.user1_cards.splice(Math.floor(Math.random() * this.user1_cards.length),1)[0];                  // used card remove
+            this.user2_rand = this.user2_cards.splice(Math.floor(Math.random() * this.user2_cards.length),1)[0];
+            
         },    
         checkChipNum: function(){ // 1-10 betting chip check
             while(this.user1_bet > 10 || this.user1_bet <1){
@@ -98,9 +106,8 @@
             }
                 
         },
-        betting: function(){
-            if(this.user1_chips > 0 && this.user2_chips > 0){
-               // this.random();        
+        betting: function(){        // For else, need to be on screen
+            if(this.user1_chips > 0 && this.user2_chips > 0){       
                 // betting Chips
                 // The second person has to pay the same or more than the first person.
                 this.checkChipNum();
@@ -108,10 +115,9 @@
                     if(this.user1_bet > this.user2_bet){    // user2_bet = 10 --> error.. Why..
                         // 1-10 betting chip check
                         this.user2_bet = ("User2 Chips >= User1 Chips");
-                        //this.check = "yes I am";
                     }
                 }
-                else{
+                else{           // user1_bet = 10 --> error..... Why..
                     if(this.user1_bet < this.user2_bet){
                         //this.checkChipNum();
                         this.user1_bet = ("User1 Chips >= User2 Chips");
@@ -120,28 +126,30 @@
             }
             
         },
-        betting_res: function(){
-            if(this.before_user1_bet !=0){
-                this.user1_bet = parseInt(user1_bet) + parseInt(before_user1_bet);
-                this.user2_bet = parseInt(user2_bet) + parseInt(before_user2_bet);
-            }
+        betting_res: function(){        // For else, need to be on screen
+            if(this.user1_chips > 0 && this.user2_chips > 0){
+                if(this.before_user1_bet !=0){
+                    this.user1_bet = parseInt(user1_bet) + parseInt(before_user1_bet);
+                    this.user2_bet = parseInt(user2_bet) + parseInt(before_user2_bet);
+                }
 
-            if(this.user1_rand == this.user2_rand){ //to combine it with the betting amount for the next round.
-                this.before_user1_bet = this.user1_bet;
-                this.before_user2_bet = this.user2_bet;
-                this.user1_chips = parseInt(this.user1_chips) - parseInt(this.user1_bet);
-                this.user2_chips = parseInt(this.user2_chips) - parseInt(this.user2_bet);
-            }
-            else if(this.user1_rand > this.user2_rand){
-                
-                this.user1_chips = parseInt(this.user1_chips) + parseInt(this.user2_bet);
-                this.user2_chips = parseInt(this.user2_chips) - parseInt(this.user2_bet);
-                this.winner = "user1";
-            }
-            else{  //(user1_rand < user2_rand)
-                this.user2_chips = parseInt(this.user2_chips) + parseInt(this.user1_bet);
-                this.user1_chips = parseInt(this.user1_chips) - parseInt(this.user1_bet);
-                this.winner = "user2";
+                if(this.user1_rand == this.user2_rand){ //to combine it with the betting amount for the next round.
+                    this.before_user1_bet = this.user1_bet;
+                    this.before_user2_bet = this.user2_bet;
+                    this.user1_chips = parseInt(this.user1_chips) - parseInt(this.user1_bet);
+                    this.user2_chips = parseInt(this.user2_chips) - parseInt(this.user2_bet);
+                }
+                else if(this.user1_rand > this.user2_rand){
+                    
+                    this.user1_chips = parseInt(this.user1_chips) + parseInt(this.user2_bet);
+                    this.user2_chips = parseInt(this.user2_chips) - parseInt(this.user2_bet);
+                    this.winner = "user1";
+                }
+                else{  //(user1_rand < user2_rand)
+                    this.user2_chips = parseInt(this.user2_chips) + parseInt(this.user1_bet);
+                    this.user1_chips = parseInt(this.user1_chips) - parseInt(this.user1_bet);
+                    this.winner = "user2";
+                }
             }
         },
         game_end: function(){
@@ -168,7 +176,8 @@
 
 <br/><br/><br/><br/>
 // TO-DO
-// Small errors need to be corrected. (betting..)
+// Used Card Not Reusable..                             ----------> solved
+// Small errors need to be corrected. (betting, if tied..)
 // add ALL-In CASE
 // align with Front-end 
 
