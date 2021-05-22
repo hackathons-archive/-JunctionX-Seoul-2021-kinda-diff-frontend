@@ -17,10 +17,14 @@
     How much will you bet?(1 - 10)<br/>
     input user1 bet chip : <input type="number" placeholder="user1 bet chips" v-model="user1_bet" >
     input user2 bet chip : <input type="number" placeholder="user2 bet chips" v-model="user2_bet" ><br/><br/>
+    
     <button v-on:click="betting">Betting Chips</button><br/>
     user bet : user1 - {{ user1_bet }}, user2 - {{user2_bet}}<br/><br/>
+    
     <button v-on:click="betting_res">Betting Result</button><br/>
     User Chips : user1 - {{user1_chips}}, user2 - {{user2_chips}}<br/>
+
+    
 
   </div>
 
@@ -114,6 +118,7 @@
                     }
                 }
             }
+            
         },
         betting_res: function(){
             if(this.before_user1_bet !=0){
@@ -162,10 +167,13 @@
 
 
 <br/><br/><br/><br/>
+// TO-DO
+// Small errors need to be corrected. (betting..)
+// add ALL-In CASE
+// align with Front-end 
+
+
 /*
-
-
-
 button v-on:click="random">select random cards/button>
     //As soon as two people come in, the game starts.
 
