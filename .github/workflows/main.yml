@@ -26,7 +26,7 @@ jobs:
         working-directory: ./kindadiff-frontend
 
       # Deploy
-      - run: aws s3 sync . s3://frontend--tmp/ --delete
+      - run: aws s3 sync . s3://frontend--tmp/example --delete
         working-directory: ./kindadiff-frontend
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
