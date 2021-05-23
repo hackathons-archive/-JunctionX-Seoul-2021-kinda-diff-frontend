@@ -6,11 +6,11 @@ Indian Faker, a online indian poker game application, allow people to play poker
 http://frontend--tmp.s3-website-us-east-1.amazonaws.com/#/
 
 ### Future Plan
-> More front ends should be implemented.<br>
-> Game logic should be applied to the front end.<br>
-> The code in the game logic needs to be modified to make the game work well.<br>
-> the back-end and front-end are combined to allow the game to be played.<br>
-> Distribute the game.<br>
+- More front ends should be implemented.<br>
+- Game logic should be applied to the front end.<br>
+- The code in the game logic needs to be modified to make the game work well.<br>
+- the back-end and front-end are combined to allow the game to be played.<br>
+- Distribute the game.<br>
 
 ### Why We Select this Dev Stack?
 The frameworks available to team members were different.<br>
