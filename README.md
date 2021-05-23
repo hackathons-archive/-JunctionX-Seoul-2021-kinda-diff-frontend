@@ -1,8 +1,9 @@
-# JunctionX Seoul 2021 | Indian Faker | Team kinda-diff | Front-end
+# JunctionX Seoul 2021 | Indian Faker | Team kinda-diff | Front-end Side
 
 Indian Faker, a online indian poker game application, allow people to play poker face to face.
 
 ### AWS - Amazon Web Services
+http://frontend--tmp.s3-website-us-east-1.amazonaws.com/#/
 
 ### Future Plan
 
@@ -30,8 +31,3 @@ We would like to express our very great appreciation to people from JunctionxSeo
 ### License
 
 Indian Faker is [MIT licensed](https://github.com/kinda-diff/kinda-diff-backend/blob/main/LICENSE)
-
-# kinda-diff-frontend
-frontend side of the app 
-
-http://frontend--tmp.s3-website-us-east-1.amazonaws.com/#/
