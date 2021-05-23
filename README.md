@@ -25,8 +25,6 @@ we thought we could understand each other's code more since Vue.js has a clear s
 
 Project Proposal Link: [Indian Faker Proposal File]()
 
-Main Video: [Indian Faker Main Video]()
-
 Prototype Video: [Indian Faker Prototype Video]()
 
 Git Repository Link: [Indian Faker Git Repository](https://github.com/kinda-diff)
