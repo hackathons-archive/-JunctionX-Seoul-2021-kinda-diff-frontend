@@ -40,7 +40,17 @@
           outlined
       >
 
-        chip X 20
+        chip X {{user1_chips}}
+      </v-chip>
+
+      <v-chip
+          className="ma-2"
+          color="#2973B5"
+          style="position: relative; margin-right: 65%; font-size: 26px;"
+          outlined
+      >
+
+        chip X {{user2_chips}}
       </v-chip>
 
     </div>
