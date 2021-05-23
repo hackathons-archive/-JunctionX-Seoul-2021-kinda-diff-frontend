@@ -1,4 +1,4 @@
-# JunctionX Seoul 2021 | Indian Faker | Team kinda-diff
+# JunctionX Seoul 2021 | Indian Faker | Team kinda-diff | Front-end
 
 Indian Faker, a online indian poker game application, allow people to play poker face to face.
 
