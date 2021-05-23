@@ -8,6 +8,9 @@ In this project we used Vue JS for our Front-end supported by Vue material and V
 ### AWS - Amazon Web Services
 http://frontend--tmp.s3-website-us-east-1.amazonaws.com/#/
 
+### Flow Chart
+![flow chart](https://user-images.githubusercontent.com/53934639/119249632-0d453680-bbd5-11eb-8e27-35390cf94f4d.png)<br>
+
 ### Future Plan
 - More front ends should be implemented. With our skillset, we need more time to implement everything perfectly<br>
 - Game logic should be applied to the front end.<br>
@@ -24,8 +27,6 @@ we thought we could understand each other's code more since Vue.js has a clear s
 ### More Detailed Description can be found below
 
 Project Proposal Link: [Indian Faker Proposal File]()
-
-Main Video: [Indian Faker Main Video]()
 
 Prototype Video: [Indian Faker Prototype Video]()
 
