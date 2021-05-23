@@ -69,7 +69,7 @@
         // Initial chips amount
         user1_chips:20,
         user2_chips:20,
-        // rancom card
+        // random card
         user1_rand: 1,
         user2_rand: 1,
         // bet chips
@@ -160,11 +160,11 @@
                 }
             }
         },
-        betting_res: function(){       
-            if(this.user1_chips > 0 && this.user2_chips > 0){
+        betting_res: function(){
+                  if(this.user1_chips > 0 && this.user2_chips > 0){
 
-                if(this.before_user1_bet !=0){              //If the previous round was a draw
-                    this.user1_bet = parseInt(this.user1_bet) + parseInt(this.before_user1_bet);
+                    if(this.before_user1_bet !=0){              //If the previous round was a draw
+                      this.user1_bet = parseInt(this.user1_bet) + parseInt(this.before_user1_bet);
                     this.user2_bet = parseInt(this.user2_bet) + parseInt(this.before_user2_bet);
                     this.before_user1_bet =0;
                     this.before_user2_bet =0;

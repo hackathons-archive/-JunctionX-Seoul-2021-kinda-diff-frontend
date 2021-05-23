@@ -2,11 +2,14 @@
 
 Indian Faker, a online indian poker game application, allow people to play poker face to face.
 
+### Utilized Technology 
+
+In this project we used Vue JS for our Front-end supported by Vue material and Vuetify as the design framework.
 ### AWS - Amazon Web Services
 http://frontend--tmp.s3-website-us-east-1.amazonaws.com/#/
 
 ### Future Plan
-- More front ends should be implemented.<br>
+- More front ends should be implemented. With our skillset, we need more time to implement everything perfectly<br>
 - Game logic should be applied to the front end.<br>
 - The code in the game logic needs to be modified to make the game work well.<br>
 - the back-end and front-end are combined to allow the game to be played.<br>
