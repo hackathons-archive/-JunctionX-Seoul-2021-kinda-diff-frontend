@@ -12,6 +12,24 @@ Indian Faker, a online indian poker game application, allow people to play poker
 
 ### More Detailed Description can be found below
 
+Project Proposal Link: [Indian Faker Proposal File]()
+
+Main Video: [Indian Faker Main Video]()
+
+Prototype Video: [Indian Faker Prototype Video]()
+
+Git Repository Link: [Indian Faker Git Repository]()
+
+### Logic
+Indian Faker's [Game Logic](https://github.com/kinda-diff/kinda-diff-frontend/blob/main/game_logic.html)
+
+### Acknowledgements
+
+We would like to express our very great appreciation to people from JunctionxSeoul for their valuable support and organize many activities. We would like to express our deep gratitude to mentors from AWS for their enthusiatic encouragement and AWS credits for us to use API services in AWS platform to develop this project.
+
+### License
+
+Indian Faker is [MIT licensed](https://github.com/kinda-diff/kinda-diff-backend/blob/main/LICENSE)
 
 # kinda-diff-frontend
 frontend side of the app 
