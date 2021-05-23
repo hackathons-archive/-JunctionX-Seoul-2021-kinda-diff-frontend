@@ -8,34 +8,44 @@
 </head>
 <body>
   <div id="app">
+    <div>Note) If user loses with 10, User has to submit an additional 5 chips.</div><br/><br/>
+
+    <div>
     User1_Cards : {{user1_cards}}<br/>
     User2_Cards : {{user2_cards}}<br/><br/>
-    Now winner : {{winner}}<br/>
+    Now First : {{winner}}<br/>
     Round : {{round}}<br/><br/>
-    
+    </div>
 
-    cardNum : user1 - {{user1_rand}}, user2 - {{user2_rand}}<br/>
+    <div>
+    Card Num : user1 - {{user1_rand}}, user2 - {{user2_rand}}<br/>
     <button v-on:click="random">select random cards</button><br/><br/>
+    </div>
 
-
+    <div>
     Two ways to bet<br/><br/>
+    User bet : user1 - {{user1_bet}}, user2 - {{user2_bet}}<br/><br/>
+    </div>
+
+    <div>
     [First Method]<br/>
     How much will you bet?(1 - 10)<br/>
     input user1 bet chip : <input type="number" placeholder="user1 bet chips" v-model="user1_bet" >
     input user2 bet chip : <input type="number" placeholder="user2 bet chips" v-model="user2_bet" ><br/>
     <button v-on:click="betting">Betting Chips</button><br/><br/>
+    </div>
 
+    <div>
     [Second Method]<br/>
-    Do you want to go all-in?<br/>
-    Just like the number of all-in chips, the opponent's chips are automatically betted.<br/>
-    <button v-on:click="betting_Res">Betting All Chips</button><br/><br/>
-
-    user bet : user1 - {{ user1_bet }}, user2 - {{user2_bet}}<br/><br/>
+    Do you want to go All-In?<br/>
+    Just like the number of All-In chips, The Opponent's chips are automatically betted.<br/>
+    <button v-on:click="betting_all_in">Betting All Chips</button><br/><br/>
+    </div>
     
-    before user betting chip : user1 - {{before_user1_bet}}, user2 - {{before_user2_bet}}<br/><br/>
-
-    <button v-on:click="betting_res">Betting Result</button><br/>
+    <div>
     User Chips : user1 - {{user1_chips}}, user2 - {{user2_chips}}<br/><br/>
+    <button v-on:click="betting_res">Betting Result</button><br/>
+    </div>
     
   </div>
 
@@ -60,13 +70,11 @@
         //if tied, use before bet chips
         before_user1_bet:"",
         before_user2_bet:"",
-
         // round
         round : 0,
 
-        
         //The room manager starts the game first. I randomly set user1 to go first.
-    //From the second round, Game start with the winner of the previous round.
+        //From the second round, Game start with the winner of the previous round.
         winner: "user1"
       },
      
@@ -94,20 +102,17 @@
                 // The second person has to pay the same or more than the first person.
                 this.checkChipNum();
                 if(this.winner == "user1"){
-                    if(this.user1_bet > this.user2_bet){    // user2_bet = 10 --> error.. Why..
+                    if(this.user1_bet > this.user2_bet){    
                         this.user2_bet = ("User2 Chips >= User1 Chips");
                     }
                 }
-                else{           // user1_bet = 10 --> error..... Why..
+                else{           
                     if(this.user1_bet < this.user2_bet){
                         this.user1_bet = ("User1 Chips >= User2 Chips");
                     }
                 }
             }
-            /*
-            else{
-                this.over_message += "winner is "+this.winner;
-            }*/
+            
             
         },
         betting_all_in: function(){     
@@ -125,7 +130,6 @@
                     else{
                         this.user2_bet = this.user1_chips;
                     }
-                    
                 }
                 else{           
                     this.user2_bet = this.user2_chips;     
@@ -140,10 +144,7 @@
                 }
                 
             }
-            /*
-            else{
-                this.over_message += "Winner is "+this.winner;
-            }*/
+            
         },
         betting_res: function(){       
 
@@ -188,37 +189,6 @@
         logText: function() {
           console.log('changed');
         },
-        // Even without a watch, it works well on the test.
-        /* watch: {
-        user1_chips: function() {
-            this.logText();
-        },
-        user2_chips: function(){
-            this.logText();
-        },
-        user1_rand: function(){
-            this.logText();
-        },
-        user2_rand: function(){
-            this.logText();
-        },
-        user1_bet:function(){
-            this.logText();
-        },
-        user2_bet:function(){
-            this.logText();
-        },
-        winner: function(){
-            this.logText();
-        },
-        round: function(){
-            this.logText();
-        },
-        cards: function(){
-            thi.logText();
-        }
-       
-      },*/
 
       }
     })
