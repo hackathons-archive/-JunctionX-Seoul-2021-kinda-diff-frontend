@@ -31,7 +31,7 @@
   <v-chip
       class="ma-2"
       color="#2973B5"
-      style="position: relative; margin-right: 60%; font-size: 26px;"
+      style="position: relative; margin-right: 65%; font-size: 26px;"
       outlined
   >
 
@@ -39,10 +39,14 @@
   </v-chip>
 
 </div>
+  <img class="pokertable" src="../image/table.svg" alt="tablepocker" height="600" style="margin-right: 500px; margin-left: -300px; position: absolute;">
 
-<!--  <img class="pokertable" src="../image/table.svg" alt="tablepocker" height="600" style="margin-top: 20px; margin-left: -300px; text-align: center; position: absolute;">-->
-<!--  <img src="../image/profile.svg" alt="profile" height="437" style="margin-top: -60px; margin-left:65px; position: relative;">-->
-   <img src="../image/connected.svg" alt="profile" height="760" style="margin-top: -60px; margin-left:65px; position: relative;">
+
+    <img src="../image/profile.svg" alt="profile" height="437" style="margin-top: -5px; margin-left:65px; position: relative;">
+
+
+  <img src="../image/card stack.svg" alt="profile" height="117" style="margin-top: 30px; margin-left:90px; position: relative;">
+
 
   <v-footer
       color="#F8981D"
