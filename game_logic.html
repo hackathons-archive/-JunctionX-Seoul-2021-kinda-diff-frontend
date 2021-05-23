@@ -7,44 +7,53 @@
   <title>Document</title>
 </head>
 <body>
-  <div id="app">
-    <div>Note) If user loses with 10, User has to submit an additional 5 chips.</div><br/><br/>
-
+  <div id="app" style="font-weight: 100; font-size: medium;">
+    <div style="font-size: larger; font-weight: 900;">
+        Note) If user loses with 10, User has to submit an additional 5 chips.
+    </div><br/>
     <div>
-    User1_Cards : {{user1_cards}}<br/>
-    User2_Cards : {{user2_cards}}<br/><br/>
-    Now First : {{winner}}<br/>
-    Round : {{round}}<br/><br/>
+        User1_Cards : {{user1_cards}}<br/>
+        User2_Cards : {{user2_cards}}<br/><br/>
+        Now First : {{winner}}<br/>
+        Round : {{round}}<br/><br/>
     </div>
 
     <div>
-    Card Num : user1 - {{user1_rand}}, user2 - {{user2_rand}}<br/>
-    <button v-on:click="random">select random cards</button><br/><br/>
+        Card Num : user1 -> {{user1_rand}}, user2 -> {{user2_rand}}<br/>
+        <button v-on:click="random">select random cards</button>
+        <br/><br/>
+    </div>
+
+    <div style="font-size: larger; font-weight: 900;">
+        Two ways to bet<br/></div>
+    <div>
+        User bet : user1 -> {{user1_bet}}, user2 -> {{user2_bet}}<br/><br/>
+    </div>
+
+    <div  style="font-size: medium; font-weight: 600;">
+        [First Method]<br/>
+    </div>
+    <div>
+        How much will you bet?(1 - 10)<br/><br/>
+        
+        Input User1 bet Chip : <input type="number" placeholder="user1 bet chips" v-model="user1_bet" ><br/>
+        Input User2 bet Chip : <input type="number" placeholder="user2 bet chips" v-model="user2_bet" ><br/>
+        <button v-on:click="betting">Betting Chips</button><br/><br/>
+    </div>
+
+    <div style="font-size: medium; font-weight: 600;">
+        [Second Method]<br/>
     </div>
 
     <div>
-    Two ways to bet<br/><br/>
-    User bet : user1 - {{user1_bet}}, user2 - {{user2_bet}}<br/><br/>
-    </div>
-
-    <div>
-    [First Method]<br/>
-    How much will you bet?(1 - 10)<br/>
-    input user1 bet chip : <input type="number" placeholder="user1 bet chips" v-model="user1_bet" >
-    input user2 bet chip : <input type="number" placeholder="user2 bet chips" v-model="user2_bet" ><br/>
-    <button v-on:click="betting">Betting Chips</button><br/><br/>
-    </div>
-
-    <div>
-    [Second Method]<br/>
-    Do you want to go All-In?<br/>
-    Just like the number of All-In chips, The Opponent's chips are automatically betted.<br/>
-    <button v-on:click="betting_all_in">Betting All Chips</button><br/><br/>
+        Do you want to go All-In?<br/>
+        Just like the number of All-In chips, The Opponent's chips are automatically betted.<br/>
+        <button v-on:click="betting_all_in">Betting All Chips</button><br/><br/>
     </div>
     
-    <div>
-    User Chips : user1 - {{user1_chips}}, user2 - {{user2_chips}}<br/><br/>
-    <button v-on:click="betting_res">Betting Result</button><br/>
+    <div style="font-size: larger; font-weight: 900;">
+        Number of User Chips : user1 -> {{user1_chips}}, user2 -> {{user2_chips}}<br/><br/>
+        <button v-on:click="betting_res">Betting Result</button><br/>
     </div>
     
   </div>
@@ -75,7 +84,10 @@
 
         //The room manager starts the game first. I randomly set user1 to go first.
         //From the second round, Game start with the winner of the previous round.
-        winner: "user1"
+        winner: "user1",
+                
+        // game over check
+        game_over_ : false
       },
      
       methods: {
@@ -85,15 +97,18 @@
             // used card remove
             this.user1_rand = this.user1_cards.splice(Math.floor(Math.random() * this.user1_cards.length),1)[0];                
             this.user2_rand = this.user2_cards.splice(Math.floor(Math.random() * this.user2_cards.length),1)[0];
-            
         },    
         checkChipNum: function(){ // 1-10 betting chip check
-            while(this.user1_bet > 10 || this.user1_bet <1){
-                this.user1_bet = ("Submit 1-10 Chips.");
+            if(this.user1_bet > 10 || this.user1_bet <1){
+                this.user1_bet = "";
+                alert("For User1, Submit 1-10 Chips.");
+
             }
-            while(this.user2_bet > 10|| this.user2_bet <1){
-                this.user2_bet = ("Submit 1-10 Chips.");
+            if(this.user2_bet > 10 || this.user2_bet <1){
+                this.user2_bet ="";
+                alert("For User2, Submit 1-10 Chips.");
             }
+            
                 
         },
         betting: function(){        
@@ -103,17 +118,18 @@
                 this.checkChipNum();
                 if(this.winner == "user1"){
                     if(this.user1_bet > this.user2_bet){    
-                        this.user2_bet = ("User2 Chips >= User1 Chips");
+                        
+                        this.user2_bet = "";
+                        alert('User2 Chips >= User1 Chips');
                     }
                 }
                 else{           
                     if(this.user1_bet < this.user2_bet){
-                        this.user1_bet = ("User1 Chips >= User2 Chips");
+                        this.user1_bet ="";
+                        arlert('User1 Chips >= User2 Chips');
                     }
                 }
             }
-            
-            
         },
         betting_all_in: function(){     
             if(this.user1_chips > 0 && this.user2_chips > 0){       
@@ -142,12 +158,9 @@
                         this.user1_bet = this.user1_chips;
                     }
                 }
-                
             }
-            
         },
         betting_res: function(){       
-
             if(this.user1_chips > 0 && this.user2_chips > 0){
 
                 if(this.before_user1_bet !=0){              //If the previous round was a draw
@@ -156,7 +169,6 @@
                     this.before_user1_bet =0;
                     this.before_user2_bet =0;
                 }
-                
                 
                 if(this.user1_rand == this.user2_rand){         // to combine it with the betting amount for the next round.
                     this.before_user1_bet = this.user1_bet;
@@ -179,13 +191,24 @@
                     if(this.user1_rand== 10){   //-5 chips as penalty if users lose the game with 10
                         this.user1_chips -= 5;
                     }   
-
                     this.winner = "user2";
-                }
-                
+                }   
+            }
+            this.game_over();
+            if(this.game_over_ == true){
+
+                var str = "The Game is Over. Winner is " + this.winner + "!";
+                alert(str);
             }
         },
-        
+        game_over: function(){
+            if(this.user1_chips <= 0 || this.user2_chips <= 0){
+                this.game_over_ = true;
+            }
+            else if(this.user1_cards.length== 0 || this.user1_cards.length == 0){
+                this.game_over_ = true;
+            }
+        },
         logText: function() {
           console.log('changed');
         },
@@ -196,17 +219,5 @@
 </body>
 </html>
 
-
-<br/><br/><br/><br/>
-TO-DO<br/>
-Used Card Not Reusable..                             ----------> solved<br/>
-Small errors need to be corrected. (Somtimes... betting, if tied.. )<br/>
-betting, betting_res : For else, need to be on screen         ----------> solved..(?)<br/>
-Apply loop statement to game <br/>
-add ALL-In CASE                              ----------> solved <br/>  
-add win, lose, tied case
-align with Front-end <br/>
-add 'end game' Function                              --> when align front-end<br/>
-Implement in detail in function<br/>
 
 
