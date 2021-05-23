@@ -19,10 +19,12 @@ Main Video: [Indian Faker Main Video]()
 
 Prototype Video: [Indian Faker Prototype Video]()
 
-Git Repository Link: [Indian Faker Git Repository]()
+Git Repository Link: [Indian Faker Git Repository](https://github.com/kinda-diff)
 
 ### Logic
+Game progress code implementation.<br>
 Indian Faker's [Game Logic](https://github.com/kinda-diff/kinda-diff-frontend/blob/main/game_logic.html)
+
 
 ### Acknowledgements
 
